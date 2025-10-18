@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>booklet</title>
+<script src=
+"https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+</head>
+<body>
+<a-scene page-controls>
+<a-camera wasd-controls-enabled="false">
+</a-camera>
+<a-assets>
+    <img src="https://m.media-amazon.com/images/M/MV5BMjNhYWQ3ZjgtYWQ2Ny00MzQ4LWFiODgtMWJkZDYwYWE1NDZmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" id="img1">
+    <img src="Image20251018082435.png" id="img2">
+    <img src="Image20251018082457.png" id="img3">
+    <img src="Image20251018082502.png" id="img4">
+</a-assets>
+<a-entity layer="src:#img1; height: 3; width:1.9505" position="0 2.5 -2">
+</a-entity>
+<script>
+AFRAME.registerComponent('page-controls', {
+schema: {
+    pages:{type: 'array', default:[
+        {page: 'img1'},
+        {page: 'img2'},
+        {page: 'img3'},
+        {page: 'img4'}
+    ]},
+    pageIndex: {type:'int', default: 0}
+},
+init: function () {
+    var pageEL=this.pageEL=document.querySelector('[layer]');
+    var pageIndex = this.data.pageIndex
+    window.addEventListener("keydown", (e) => {
+        if (e.key==="ArrowRight") {
+            pageIndex += 1
+this.turnPage(pageIndex)
+        }
+           if (e.key==="ArrowLeft") {
+            pageIndex -= 1
+            this.turnPage(pageIndex)
+           }
+    })
+},
+turnPage: function (pageIndex) {
+var pages = this.data.pages;
+var pageId = pages[pageIndex].page;
+this.pageEL.setAttribute('layer', 'src', '#' + pageId);
+}
+})
+
+</script>
+
+
+</body>
+</html>
